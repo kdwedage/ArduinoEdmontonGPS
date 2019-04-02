@@ -1,0 +1,109 @@
+Assignment 2 Part2
+
+Names: Kevin Wedage, Aryan Singh
+IDs #: 1532557, 1533732
+CMPUT 275 Winter 2019 
+
+
+Included Files:
+
+-/server:
+    server.cpp 
+        - Handle Arduino serial request for points on the edmonton map,
+        and determines shorts manhantann path to destination, and 
+        sends back waypoints.
+        - Referenced Dijkstra.cpp file from eclass, for determining
+        shortest path based on search tree.
+    digraph.cpp 
+        -From eclass, provides class for directed graph, unmodified.
+    digraph.h
+        -From eclass, unmodified.
+    wdigraph.h
+        -From eclass, provides class for weighted graph, unmodified.
+    dijkstra.cpp 
+        - Dijkstra algorithm implementation using binary heap and weighted graph.
+        - Based on eclass dijkstra algorithm 3 from heap slides.
+    dijkstra.h
+    heap.h 
+        - Implementation of Binary heap using min heap property.
+        - Modified from eclass.
+    serialport.cpp
+        -Simplifies serial communication.
+        -From eclass, unmodified.
+    serialport.h
+        -From eclass, unmodified.
+    edmonton-roads-2.0.1.txt
+        -Text file containing vertexes and edges corresponding to locations
+        on an Edmonton map.
+        -From eclass, unmodified.
+    Makefile
+-/client
+    -client.cpp
+        -Using a tft display, displays an Edmonton map. Allows for navigation
+        using a joystick, and buttons for zooming in and out. User is able
+        to select a start location and an end location, and when the complementary
+        server is running, then the shortest path will be drawn on the display.
+        -Based off eclass client base code.
+    -const_and_types.h
+        -Contains contsants and types relevant to the display, and coordinates.
+        -Modified to include serial buffer max length, and max way_points.
+        -From eclass.
+    -lcd_image.cpp
+        -Used for drawing images to the LCD.
+        -From eclass, unmodified.
+    -lcd_image.h
+        -From eclass, unmodified.
+    -map_drawing.cpp
+        -Used for simplifing common map related tasks.
+        -From eclass, unmodified.
+    -map_drawing.h
+        -From eclass, unmodified.
+    -circuit-wiring.txt
+        -Wiring for the Arduino, to correctly use the client side code.
+        -From eclass, unmodified.
+    -Makefile
+        -From eclass, unmodified
+-README
+
+Referenced Sources:
+    -https://arduino.stackexchange.com/questions/24447/convert-string-to-unsigned-long-long
+    -https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/toint/
+    -https://www.tutorialspoint.com/cplusplus/cpp_return_arrays_from_functions.htm
+
+
+Running Instructions:
+    
+    Navigate to server folder containing the server.cpp file.
+    To build object files, link object files run the command:
+        make
+    To just build object files:
+        make server.o
+    or
+        make dijkstra.o
+    or
+        make digraph.o
+    or
+        make serialport.o
+    To remove all created files:
+        make clean
+
+    Then connect the Arduino Mega by Serial to the computer. Make sure the port selected is 'ttyACM0'. 
+
+    Navigate to client folder, containing the client.cpp file.
+    Run the command:
+        make upload
+
+    Then on the computer, navigate to the folder containing the ./server file,
+    then run the command:
+
+    ./server
+
+    If required, restart the arduino. Then proceed to select locations on the arduino, using the joystick and joystick button, and recieving the shortest distance from the initial location to the final location.
+
+    Some locations will not be reachable, and therefore will not display a result on the arduino. 
+
+Assumptions:
+    That all the required files are included. The circuit is wired correctly, based on the circuit-wiring.txt file. 
+
+    No other terminal windows are opened running serial, or trying to access port 'ttyACM0'.
+
